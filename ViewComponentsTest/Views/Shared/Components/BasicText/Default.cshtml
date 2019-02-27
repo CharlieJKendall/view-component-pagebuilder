@@ -1,0 +1,11 @@
+﻿@using ViewComponentsTest.Models.ViewComponents;
+
+@model ViewComponentDataContainer<String>
+
+<div class="@Model.ViewComponentContainer.Options.Class" style="@Model.ViewComponentContainer.Options.Style">
+    <h2>Start Of Basic Text Component</h2>
+
+    <p>@Model.Data</p>
+
+    <h2>End Of Basic Text Component</h2>
+</div>

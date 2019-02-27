@@ -1,0 +1,26 @@
+﻿@using ViewComponentsTest.Models.ViewComponents;
+@using ViewComponentsTest.Models.ViewComponents.Options;
+@using ViewComponentsTest.Models.DataModels;
+
+@model ViewComponentDataContainer<List<CustomerModel>>
+
+@{var options = Model.ViewComponentContainer.Options as CustomerDetailsOptions;}
+
+<div class="@Model.ViewComponentContainer.Options.Class" style="@Model.ViewComponentContainer.Options.Style">
+    <h2>Start Of Customer Details Component</h2>
+
+    @foreach (CustomerModel customer in Model.Data)
+    {
+        if (!options.ShowOlderThanEighteenOnly || (DateTime.Now - customer.DateOfBirth).TotalDays > (365.25 * 18))
+        {
+            <h1>DOB: @customer.DateOfBirth</h1>
+
+            @foreach (ViewComponentContainer component in Model.ViewComponentContainer.ChildViewComponents)
+            {
+                @await Component.InvokeAsync(component.ViewComponentName, new ViewComponentDataContainer<CustomerModel>(component, customer))
+            }
+        }
+    }
+
+    <h2>End Of Customer Details Component</h2>
+</div>

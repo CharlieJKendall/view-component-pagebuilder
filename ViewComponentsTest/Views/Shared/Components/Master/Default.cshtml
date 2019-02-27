@@ -1,0 +1,8 @@
+﻿@using ViewComponentsTest.Models.ViewComponents;
+
+@model IEnumerable<ViewComponentContainer>
+
+@foreach (ViewComponentContainer container in Model)
+{
+    @await Component.InvokeAsync(container.ViewComponentName, container)
+}

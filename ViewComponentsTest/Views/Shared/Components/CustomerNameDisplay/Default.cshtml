@@ -1,0 +1,22 @@
+﻿@using ViewComponentsTest.Models.ViewComponents;
+@using ViewComponentsTest.Models.ViewComponents.Options;
+
+@model ViewComponentDataContainer<string>
+
+@{
+    var options = Model.ViewComponentContainer.Options as CustomerNameDisplayOptions;
+    var fontSize = $"{options.FontSize}px";
+}
+
+<div class="@Model.ViewComponentContainer.Options.Class" style="@Model.ViewComponentContainer.Options.Style">
+    <h2>Start Of Customer Details Name Display Component</h2>
+
+    <p style="font-size:@fontSize;">@Model.Data</p>
+
+    @foreach (ViewComponentContainer childComponent in Model.ViewComponentContainer.ChildViewComponents)
+    {
+        @await Component.InvokeAsync(childComponent.ViewComponentName, new ViewComponentDataContainer<String>(childComponent, @Model.Data));
+    }
+
+    <h2>End Of Customer Details Name Display Component</h2>
+</div>
