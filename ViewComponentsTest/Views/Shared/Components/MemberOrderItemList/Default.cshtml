@@ -1,0 +1,22 @@
+﻿@using ViewComponentsTest.Models.ViewComponents;
+@using ViewComponentsTest.Models.DataModels;
+@using ViewComponentsTest.Models.ViewComponents.Options;
+
+@model ViewComponentDataContainer<List<MemberOrderItemModel>>
+
+@{
+    var options = Model.ViewComponentContainer.Options as MemberOrderItemListOptions;
+}
+<base-div Options="options">
+    <div class="@options.Class" style="@options.Style">
+
+        @foreach (MemberOrderItemModel memberOrderItem in Model.Data)
+        {
+            foreach (ViewComponentContainer childComponent in Model.ViewComponentContainer.ChildViewComponents)
+            {
+                @await Component.InvokeAsync(childComponent.ViewComponentName, new ViewComponentDataContainer<MemberOrderItemModel>(childComponent, memberOrderItem));
+            }
+        }
+
+    </div>
+</base-div>

@@ -1,0 +1,31 @@
+﻿@using ViewComponentsTest.Models.ViewComponents;
+@using ViewComponentsTest.Models.DataModels;
+@using ViewComponentsTest.Models.ViewComponents.Options;
+
+@model ViewComponentDataContainer<MemberOrderItemModel>
+
+@{
+    var options = Model.ViewComponentContainer.Options as MemberOrderItemExpirationCountdownOptions;
+}
+
+<base-div Options="options">
+    @if (@Model.Data.ExpirationDate.HasValue)
+    {
+        var dt = DateTime.UtcNow;
+
+        if (@Model.Data.ExpirationDate.Value.CompareTo(dt) > 0)
+        {
+
+            TimeSpan timeDifference = @Model.Data.ExpirationDate.Value - dt;
+            <h4>Time until expiration: 
+            <span data-purchase-id="@Model.Data.Id"
+                  data-time-difference="@timeDifference.TotalSeconds"
+                  class="@options.Class"
+                  style="@options.Style"
+                  data-timer-format="@Html.Raw(options.Format)"
+                  data-timer-layout="@Html.Raw(options.Layout)"
+                  data-timer-significant="@options.Significant">
+            </span></h4>
+        }
+    }
+</base-div>

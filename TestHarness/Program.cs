@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using ViewComponentsTest;
+using ViewComponentsTest.Models.DataModels;
 using ViewComponentsTest.Models.ViewComponents;
 using ViewComponentsTest.Models.ViewComponents.Options;
 using ViewComponentsTest.ViewComponents;
@@ -11,24 +12,49 @@ namespace TestHarness
     {
         static void Main(string[] args)
         {
-            List<ViewComponentContainer> components = new List<ViewComponentContainer>()
-            {
-                new ViewComponentContainer(
-                    nameof(CustomerDetails),
-                    new List<ViewComponentContainer>()
-                    {
-                        new ViewComponentContainer(
-                            nameof(CustomerNameDisplay),
-                            new List<ViewComponentContainer>()
-                            {
-                                new ViewComponentContainer(nameof(BasicText), null, new BasicTextOptions("text-options","background-color:blue;"))
-                            },
-                            new CustomerNameDisplayOptions("customer-name-display", "background-color:red;", 50, nameof(CustomerNameDisplayOptions.Class)))
-                    },
-                    new CustomerDetailsOptions("customer-details", "background-color:black;color:red;", true))
-            };
+            
+            var master = new MasterViewComponentModel(
+                new List<ViewComponentContainer>()
+                {
+                    new ViewComponentContainer(
+                        nameof(MemberOrderItemList),
+                        new List<ViewComponentContainer>()
+                        {
+                            new ViewComponentContainer(
+                                nameof(MemberOrderItemRedeemedConditional),
+                                new List<ViewComponentContainer>()
+                                {
+                                    new ViewComponentContainer(
+                                        nameof(MemberOrderItemDetails),
+                                        null,
+                                        new MemberOrderItemDetailsOptions("a-class", "background-color:red;", false, false, new ElementWidths(1, 2, 3), nameof(MemberOrderItemModel.ProductName))),
+                                    new ViewComponentContainer(
+                                        nameof(MemberOrderItemDetails),
+                                        null,
+                                        new MemberOrderItemDetailsOptions("a-class", "background-color:white;", false, false, new ElementWidths(1, 2, 3), nameof(MemberOrderItemModel.GameNumber))),
+                                    new ViewComponentContainer(
+                                        nameof(MemberOrderItemExpirationCountdown),
+                                        null,
+                                        new MemberOrderItemExpirationCountdownOptions("a-class", "background-color:red;", false, false, new ElementWidths(1, 2, 3), significant: 4)),
+                                    new ViewComponentContainer(
+                                        nameof(HtmlElement),
+                                        new List<ViewComponentContainer>()
+                                        {
+                                            new ViewComponentContainer(
+                                            nameof(MemberOrderItemDetails),
+                                            null,
+                                            new MemberOrderItemDetailsOptions("z-class", "background-color:orange;", false, false, new ElementWidths(1, 2, 3), nameof(MemberOrderItemModel.GameNumber))),
+                                        },
+                                        new HtmlElementOptions("my-div-class", "padding:20px;", false, false, new ElementWidths(1, 2, 3), "div"))
+                                },
+                                new MemberOrderItemRedeemedConditionalOptions("redeemed-class", "padding:2px", false, false, new ElementWidths(6, 10, 12), true))                            
+                        },
+                        new MemberOrderItemListOptions("b-class", "background-color:blue;", false, false, new ElementWidths(3, 5, 9), false, false, 1, 1))
+                },
+                new List<JavascriptBundle>() { JavascriptBundle.JQuery, JavascriptBundle.JQueryPlugin, JavascriptBundle.Custom, JavascriptBundle.JQueryCountdown, JavascriptBundle.FortressMemberOrderCountdown },
+                new List<CssBundle>() { CssBundle.Bootstrap });
 
-            var json = JsonSerlializer.SerializePageJson(components);
+            var json = JsonSerlializer.SerializePageJson(master);
             var result = JsonSerlializer.DeserializePageJson(json);
 
             Console.ReadLine();

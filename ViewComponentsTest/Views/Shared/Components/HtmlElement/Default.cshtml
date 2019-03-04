@@ -1,0 +1,13 @@
+﻿@using ViewComponentsTest.Models.ViewComponents;
+@using ViewComponentsTest.Models.ViewComponents.Options;
+
+@model ViewComponentDataContainer<object>
+
+@{ 
+    var options = Model.ViewComponentContainer.Options as HtmlElementOptions;
+}
+<base-div Options="options">
+    <@options.HtmlElement class="@options.Class" style="@options.Style">
+        <render-child-components child-view-components="@Model.ViewComponentContainer.ChildViewComponents" data="@Model.Data" view-context="ViewContext"></render-child-components>
+    </@options.HtmlElement>
+</base-div>

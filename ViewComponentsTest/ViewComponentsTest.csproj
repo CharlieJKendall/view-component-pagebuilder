@@ -11,10 +11,19 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Content Update="Views\Shared\Components\CustomerDetails\Default.cshtml">
+    <Content Update="Views\Shared\Components\HtmlElement\Default.cshtml">
       <Pack>$(IncludeRazorContentInPack)</Pack>
     </Content>
-    <Content Update="Views\Shared\Components\CustomerNameDisplay\Default.cshtml">
+    <Content Update="Views\Shared\Components\MemberOrderItemDetails\Default.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
+    <Content Update="Views\Shared\Components\MemberOrderItemList\Default.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
+    <Content Update="Views\Shared\Components\MemberOrderItemRedeemedConditional\Default.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
+    <Content Update="Views\Shared\Components\MemberOrderItemExpirationCountdown\Default.cshtml">
       <Pack>$(IncludeRazorContentInPack)</Pack>
     </Content>
   </ItemGroup>

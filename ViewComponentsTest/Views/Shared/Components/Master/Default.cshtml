@@ -1,8 +1,54 @@
 ﻿@using ViewComponentsTest.Models.ViewComponents;
 
-@model IEnumerable<ViewComponentContainer>
+@model MasterViewComponentModel
 
-@foreach (ViewComponentContainer container in Model)
+@{
+    string GetJavascriptBundlePath(JavascriptBundle javascriptBundle)
+    {
+        switch (javascriptBundle)
+        {
+            case JavascriptBundle.JQuery:
+                return @"lib/jquery/dist/jquery.js";
+            case JavascriptBundle.JQueryValidation:
+                return @"lib/bootstrap/dist/js/bootstrap.js";
+            case JavascriptBundle.Custom:
+                return @"lib/custom/custom.js";
+            case JavascriptBundle.JQueryCountdown:
+                return @"lib/jquery-countdown/jquery.countdown.js";
+            case JavascriptBundle.FortressMemberOrderCountdown:
+                return @"lib/custom/fortress.memberordercountdown.js";
+            case JavascriptBundle.JQueryPlugin:
+                return @"lib/jquery-plugin/jquery.plugin.js";
+            default:
+                return string.Empty;
+        }
+    }
+
+    string GetCssBundlePath(CssBundle cssBundle)
+    {
+        switch (cssBundle)
+        {
+            case CssBundle.Bootstrap:
+                return @"lib\bootstrap\dist\css\bootstrap.css";
+            default:
+                return string.Empty;
+        }
+    }
+}
+
+@foreach (CssBundle bundle in Model.CssBundles)
 {
-    @await Component.InvokeAsync(container.ViewComponentName, container)
+    <link rel="stylesheet" href="@GetCssBundlePath(bundle)" />
+}
+
+<div>
+    @foreach (ViewComponentContainer container in Model.ViewComponents)
+    {
+        @await Component.InvokeAsync(container.ViewComponentName, container)
+    }
+</div>
+
+@foreach (JavascriptBundle bundle in Model.JavascriptBundles)
+{
+    <script src="@GetJavascriptBundlePath(bundle)"></script>
 }

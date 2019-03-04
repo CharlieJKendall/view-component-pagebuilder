@@ -1,17 +1,16 @@
 ﻿using Newtonsoft.Json;
-using System.Collections.Generic;
 using ViewComponentsTest.Models.ViewComponents;
 
 namespace ViewComponentsTest
 {
     public class JsonSerlializer
     {
-        public static List<ViewComponentContainer> DeserializePageJson(string json)
+        public static MasterViewComponentModel DeserializePageJson(string json)
         {
-            return JsonConvert.DeserializeObject<List<ViewComponentContainer>>(json);
+            return JsonConvert.DeserializeObject<MasterViewComponentModel>(json);
         }
 
-        public static string SerializePageJson(List<ViewComponentContainer> json)
+        public static string SerializePageJson(MasterViewComponentModel json)
         {
             return JsonConvert.SerializeObject(json);
         }

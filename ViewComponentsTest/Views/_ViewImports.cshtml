@@ -1,3 +1,6 @@
 ﻿@using ViewComponentsTest
 @using ViewComponentsTest.Models
+@using ViewComponentsTest.Models.ViewComponents
 @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@addTagHelper ViewComponentsTest.Models.ViewComponents.BaseDivTagHelper, ViewComponentsTest
+@addTagHelper ViewComponentsTest.Models.ViewComponents.RenderChildComponentsDataTagHelper, ViewComponentsTest

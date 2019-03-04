@@ -1,0 +1,17 @@
+﻿@using ViewComponentsTest.Models.ViewComponents;
+@using ViewComponentsTest.Models.DataModels;
+@using ViewComponentsTest.Models.ViewComponents.Options;
+
+@model ViewComponentDataContainer<MemberOrderItemModel>
+
+@{
+    var options = Model.ViewComponentContainer.Options as MemberOrderItemRedeemedConditionalOptions;
+}
+<base-div Options="options">
+    @if (@Model.Data.RedemptionStatus == VoucherRedemptionStatus.Redeemed ^ options.Not)
+    {
+    <div class="@options.Class" style="@options.Style">
+        <render-child-components child-view-components="@Model.ViewComponentContainer.ChildViewComponents" data="@Model.Data" view-context="ViewContext"></render-child-components>
+    </div>
+    }
+</base-div>
